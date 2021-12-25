@@ -1,35 +1,35 @@
-name: Github Pages Deployment
-
+name: deploy to heroku
 on:
   push:
-    branches: [ master ]
-
+    branches:
+      - master
 jobs:
-  build:
+  heroku-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
 
-      - name: Install dependencies
+      - name: install dependencies
         run: npm install --prefix=./client
 
-      - name: React Build
+      - name: react build
         run: npm run build --prefix=./client
 
-      - name: Deploy To Guthub Pages
-        run: |
-          cd ./client/build
-          ls
-          git config --global user.name $user_name
-          git config --global user.email $user_email
-          git remote set-url origin https://${github_token}@github.com/${repository}
-          git init
-          git add -A
-          git commit -m 'New Deployment'
-          git push -f https://${user_name}:${github_token}@github.com/${repository}.git master:gh-pages
-        env:
-          user_name: 'zakaryaghanai'
-          user_email: 'zakariyaghanai@gmail.com'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
+      - name: sync files
+        run: mv ./client/build ./server/www
+
+      - name: move to root
+        run: mv ./server/* ./
+
+      - name: remove unused files
+        run: rm -r ./client ./server ./.github
+
+      - name: create procfile
+        run: >
+          echo "web: node main.js" > Procfile
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP}}
+          heroku_email: "zakariyaghanai@gmail.com"
