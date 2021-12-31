@@ -1,0 +1,8 @@
+.page {
+    @apply grid h-full;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+}
+.main {
+    @apply flex h-full
+}
