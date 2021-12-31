@@ -1,0 +1,14 @@
+.custom-input {
+    @apply relative;
+}
+
+.custom-input input{
+    @apply w-full px-10 py-2 bg-zinc-50 rounded-md text-slate-700;
+    @apply focus:outline-none focus:ring-2 focus:ring-inset
+    focus:ring-slate-300
+    focus:bg-white;
+    height: 50px;
+}
+.custom-input input::placeholder {
+    @apply text-slate-400;
+}
