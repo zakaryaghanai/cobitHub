@@ -1,0 +1,22 @@
+.login-view {
+    @apply flex flex-col w-full lg:w-2/5 items-center pt-0 md:pt-28 lg:pt-40;
+}
+.login-view .login-card {
+    @apply w-full bg-white overflow-hidden rounded-md;
+    @apply mx-auto w-full md:w-2/3 lg:w-4/5;
+    /*width: clmap(500px, 50%, 100px);*/
+    max-width: 450px;
+}
+
+.login-view .login-card .inputs {
+    @apply p-10 flex flex-col gap-5;
+}
+
+.login-view .login-card button {
+    @apply w-full bg-slate-700 text-white p-4
+    hover:bg-slate-800
+    focus:bg-slate-600
+    duration-200
+    ;
+}
+
