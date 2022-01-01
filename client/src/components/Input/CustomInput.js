@@ -5,34 +5,43 @@ import * as HeroIcon  from '@heroicons/react/outline'
 
 class CustomInput extends Component {
 
-    iconDefaultClassName = ' absolute w-5 h-5 pointer-events-none left-2 '
     state = {
-        name: this.props.name,
-        icon: this.props.icon,
-        iconDefaultColor : this.props.icon && this.props.icon.color
-            ? this.iconDefaultClassName + ' ' + this.props.icon.color
-            : this.iconDefaultClassName + ' text-slate-400' ,
-        placeholder: this.props.placeHolder ? this.props.placeHolder : '',
-        inputType: this.props.type ? this.props.type : 'text',
-        showPassword: false
+        attrs: this.props.attrs ? {...this.props.attrs} : '',
+        icon: this.props.icon ? (
+            React.createElement(this.props.icon.name, {className: 'icon ' + this.props.icon.className})
+        ) : '',
+        showPasswordHandler: (this.props.showPassword && this.props.attrs.type === 'password') ?? false,
+        showPassword: false,
     }
 
+    showPasswordHandler = (e) =>  {
+
+        let newAttrs = this.state.attrs
+        newAttrs.type = 'text'
+        this.setState({
+            showPassword : true,
+            attr : {...newAttrs}
+        })
+    }
+
+    hidePasswordHandler = (e) =>  {
+        let newAttrs = this.state.attrs
+        newAttrs.type = 'password'
+        this.setState({
+            showPassword : false,
+            attr : {...newAttrs}
+        })
+    }
     render = () => {
 
         return (
             <div className='custom-input flex items-center overflow-hidden'>
-                {this.state.icon ? (
-                    React.createElement(this.state.icon.name, {className: this.state.iconDefaultColor})
-                ) : ''}
-                <input name={this.state.name} id={this.state.name} type={this.state.inputType} placeholder={this.state.placeholder}/>
-                {this.state.inputType === 'password' ? (
-                    (this.state.showPassword
-                        ? (
-                            <HeroIcon.EyeIcon className='absolute w-5 h-5 right-2 text-slate-400 cursor-pointer hover:text-slate-800'/>
-                        )
-                        : (
-                            <HeroIcon.EyeOffIcon className='absolute w-5 h-5 right-2 text-slate-400 cursor-pointer hover:text-slate-800'/>
-                        ))
+                {this.state.icon}
+                <input {...this.state.attrs}/>
+                {this.state.showPasswordHandler ? (
+                    this.state.showPassword ?
+                        (<HeroIcon.EyeIcon className='eye-icon eye-icon-active' onClick={this.hidePasswordHandler}/>) :
+                        (<HeroIcon.EyeOffIcon className='eye-icon' onClick={this.showPasswordHandler}/>)
                 ) : ''}
             </div>
         )

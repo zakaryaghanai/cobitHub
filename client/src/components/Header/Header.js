@@ -4,13 +4,6 @@ import './Header.css';
 import * as HeroIcon  from '@heroicons/react/outline'
 
 class Header extends Component {
-    signInButtonClickHandler = () => {
-        alert('attach your sign up handler by passing function reference to signInButtonClickHandler property')
-    }
-
-    signUpButtonClickHandler = () => {
-        alert('attach your sign up handler by passing function reference to signUpButtonClickHandler property')
-    }
 
     state = {
         links: [
@@ -18,10 +11,25 @@ class Header extends Component {
             {name: 'Join', url: '#'}
         ],
         showTopbar: false,
-        signInButtonClickHandler: this.props.signInButtonClickHandler ? this.props.signInButtonClickHandler : this.signInButtonClickHandler,
-        signUpButtonClickHandler: this.props.signUpButtonClickHandler ? this.props.signUpButtonClickHandler : this.signUpButtonClickHandler,
     }
 
+    signInButtonClickHandler = () => {
+        if(this.props.signInButtonClickHandler) {
+            this.props.signInButtonClickHandler()
+
+            return
+        }
+        alert('attach your sign up handler by passing function reference to signInButtonClickHandler property')
+    }
+
+    signUpButtonClickHandler = () => {
+        if(this.props.signUpButtonClickHandler) {
+            this.props.signUpButtonClickHandler()
+
+            return
+        }
+        alert('attach your sign up handler by passing function reference to signUpButtonClickHandler property')
+    }
 
     showDropDownHandler = () =>  {
         this.setState({
@@ -31,16 +39,16 @@ class Header extends Component {
 
     render() {
         return (
-            <header className=''>
+            <header className='relative z-10'>
                 <div className='w-full bg-white py-3 px-8 flex gap-10 shadow-sm relative md:py-4'>
                     <div className='logo flex items-center justify-between flex-grow md:flex-grow-0'>
-                        <div className='text-xl'>Cobit.Hub</div>
+                        <div className='text-2xl font-bold'>Cobit<span className='text-orange-500'>.</span>Hub</div>
                     </div>
 
                     <div className='links flex-grow hidden md:block'>
                         <ul className='items flex gap-10 h-full items-center'>
                             {this.state.links.map((link) => (
-                                <li key={link.name + '_'} className='item'>
+                                <li key={link.name + '_'} className='item text-slate-900'>
                                     <a href={link.url}
                                        className='hover:underline hover:decoration-2'>
                                         {link.name}
@@ -62,24 +70,24 @@ class Header extends Component {
                             className='button h-12 w-24 duration-200 bg-slate-100 hidden lg:block
                             focus:bg-slate-200
                             focus:ring-2 focus:ring focus:ring-slate-300'
-                            onClick={this.state.signInButtonClickHandler}
+                            onClick={this.signInButtonClickHandler}
                         >sign in
                         </button>
                         <button
-                            className='button h-12 w-24 duration-200 bg-slate-700 text-white rounded-sm hidden lg:block
+                            className='button h-12 w-24 duration-200 bg-slate-800 text-white rounded-sm hidden lg:block
                             hover:bg-slate-700
-                            focus:bg-slate-800
+                            focus:bg-slate-900
                             focus:ring-2 focus:ring focus:ring-slate-400'
-                            onClick={this.state.signUpButtonClickHandler}>
+                            onClick={this.signUpButtonClickHandler}>
                             sign up
                         </button>
                     </div>
 
                 </div>
-                <div className= { this.state.showTopbar ? 'bg-white p-4 shadow-md rounded-sm overflow-hidden lg:hidden' : 'hidden'} >
+                <div className= { this.state.showTopbar ? 'w-full bg-white p-4 shadow-md rounded-sm overflow-hidden absolute lg:hidden' : 'hidden'} >
                     <ul className='items flex flex-col h-full items-start md:hidden'>
                         {this.state.links.map((link, index) => (
-                            <li key={link.title} className='w-full cursor-pointer p-4 hover:bg-zinc-50 active:bg-zinc-100'>
+                            <li key={index} className='w-full text-slate-800 cursor-pointer p-4 hover:bg-zinc-50 active:bg-zinc-100'>
                                 <a href={link.url}
                                    className='w-full text-zinc-800'>
                                     {link.name}
@@ -92,13 +100,14 @@ class Header extends Component {
                             className='button h-12 w-24 duration-200 bg-slate-100 lg:hidden
                             focus:bg-slate-200
                             focus:ring-2 focus:ring focus:ring-slate-300'
-                        >sign in
+                            onClick={this.signInButtonClickHandler}>sign in
                         </button>
                         <button
                             className='button h-12 w-24 duration-200 bg-slate-800 text-white rounded-sm lg:hidden
                             hover:bg-slate-700
-                            focus:bg-slate-800
-                            focus:ring-2 focus:ring focus:ring-slate-400'>sign up
+                            focus:bg-slate-900
+                            focus:ring-2 focus:ring focus:ring-slate-400'
+                            onClick={this.signUpButtonClickHandler}>sign up
                         </button>
                     </div>
                 </div>
