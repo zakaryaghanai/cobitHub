@@ -4,5 +4,9 @@
     grid-template-columns: 1fr;
 }
 .main {
-    @apply flex h-full
+    @apply h-full grid grid-cols-1 lg:grid-cols-5;
+    font-family: BalooDa2-Bold, serif !important;
+}
+.main p{
+    font-family: BalooDa2-Bold, serif !important;
 }

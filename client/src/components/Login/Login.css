@@ -1,5 +1,5 @@
 .login-view {
-    @apply relative flex flex-col w-full lg:w-2/5 items-center justify-center  -top-32 md:-top-10;
+    @apply relative flex flex-col w-full items-center justify-center  -top-32 md:-top-10 col-span-2;
 }
 .login-view .login-card {
     @apply w-full bg-white rounded-none overflow-hidden;

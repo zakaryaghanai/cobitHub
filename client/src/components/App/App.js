@@ -26,10 +26,11 @@ class App extends Component {
             <div className='page'>
                 <Header {...this.state.handlers}/>
                 <div className='main'>
-                    <div className='hidden lg:block flex-grow px-20'>
-                        <p className='text-6xl font-bold text-slate-800 pt-10 md:pt-28 lg:pt-40'>Cobit<span className='text-orange-500'>.</span>Hub</p>
+                    <div className='hidden lg:block flex-grow px-20 col-span-3'>
+                        <p className='text-7xl font-bold text-slate-800 pt-10 md:pt-28 lg:pt-40'>Cobit<span className='text-orange-500'>.</span>Hub</p>
+                        <p className='text-7xl pt-24 w-full font-bold text-slate-800'>Rapidly build modern websites without ever leaving your HTML.</p>
                     </div>
-                    <Login/>
+                    <Login />
                 </div>
             </div>
 

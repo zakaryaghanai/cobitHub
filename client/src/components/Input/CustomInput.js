@@ -7,9 +7,6 @@ class CustomInput extends Component {
 
     state = {
         attrs: this.props.attrs ? {...this.props.attrs} : '',
-        icon: this.props.icon ? (
-            React.createElement(this.props.icon.name, {className: 'icon ' + this.props.icon.className})
-        ) : '',
         showPasswordHandler: (this.props.showPassword && this.props.attrs.type === 'password') ?? false,
         showPassword: false,
     }
@@ -32,17 +29,29 @@ class CustomInput extends Component {
             attr : {...newAttrs}
         })
     }
+
     render = () => {
+
+        let icon = null;
+        let eyeIcon = null;
+
+        if ( this.props.icon ) {
+            icon = React.createElement(this.props.icon.name, {className: 'icon ' + this.props.icon.className});
+
+        }
+
+        if ( this.props.showPassword && this.props.attrs.type === 'password') {
+            eyeIcon = <HeroIcon.EyeOffIcon className='eye-icon' onClick={this.showPasswordHandler}/>
+            if ( this.state.showPassword ) {
+                eyeIcon = <HeroIcon.EyeIcon className='eye-icon eye-icon-active' onClick={this.hidePasswordHandler}/> ;
+            }
+        }
 
         return (
             <div className='custom-input flex items-center overflow-hidden'>
-                {this.state.icon}
+                {icon}
                 <input {...this.state.attrs}/>
-                {this.state.showPasswordHandler ? (
-                    this.state.showPassword ?
-                        (<HeroIcon.EyeIcon className='eye-icon eye-icon-active' onClick={this.hidePasswordHandler}/>) :
-                        (<HeroIcon.EyeOffIcon className='eye-icon' onClick={this.showPasswordHandler}/>)
-                ) : ''}
+                {eyeIcon}
             </div>
         )
     }
