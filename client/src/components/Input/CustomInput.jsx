@@ -1,5 +1,5 @@
 import React, { Component} from "react";
-import './CustomInput.css';
+import './CustomInput.scss';
 
 import * as HeroIcon  from '@heroicons/react/outline'
 
@@ -34,7 +34,11 @@ class CustomInput extends Component {
 
         let icon = null;
         let eyeIcon = null;
+        let label = null;
 
+        if(this.props.label) {
+            label = <span className='custom-input-label'>{this.props.label}</span>
+        }
         if ( this.props.icon ) {
             icon = React.createElement(this.props.icon.name, {className: 'icon ' + this.props.icon.className});
 
@@ -48,10 +52,13 @@ class CustomInput extends Component {
         }
 
         return (
-            <div className='custom-input flex items-center overflow-hidden'>
-                {icon}
-                <input {...this.state.attrs}/>
-                {eyeIcon}
+            <div className='custom-input-wrap'>
+                {label}
+                <div className='custom-input flex items-center overflow-hidden'>
+                    {icon}
+                    <input {...this.state.attrs}/>
+                    {eyeIcon}
+                </div>
             </div>
         )
     }

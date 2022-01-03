@@ -1,0 +1,28 @@
+.login-view {
+    @apply relative flex flex-col w-full items-center col-span-2;
+    @apply mx-auto w-full p-3 md:w-11/12;
+    max-width: 500px;
+}
+.login-view .login-card {
+    @apply w-full bg-white rounded-none overflow-hidden shadow-md rounded-sm;
+}
+
+.login-view .title {
+    @apply w-full text-5xl py-10 text-slate-600;
+}
+
+.login-view .login-card .inputs {
+    @apply select-none p-10 flex flex-col gap-4;
+}
+
+.login-view .login-card button {
+    @apply w-full bg-sky-800 text-slate-50 px-4 h-12 rounded-sm
+    hover:bg-sky-700
+    focus:bg-sky-900
+    duration-300 text-lg
+    focus:ring-2 focus:ring focus:ring-blue-200
+    ;
+}
+
+
+

@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 
-// css import
 import './assets/css/fonts.css';
-import './index.css';
+import './index.scss';
+
+const rootElement = document.getElementById("app");
 
 ReactDOM.render(
     <React.StrictMode>
         <App />
     </React.StrictMode>,
-    document.getElementById('app')
+    rootElement
 );
 
 reportWebVitals();

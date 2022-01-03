@@ -3,18 +3,18 @@
 }
 
 .btn {
-    @apply h-12 w-24 duration-200 bg-slate-100
+    @apply h-12 w-24 duration-300 bg-slate-100
     focus:bg-slate-200
     focus:ring-2 focus:ring focus:ring-slate-300
 }
 .btn-primary {
-    @apply h-12 w-24  duration-200 bg-slate-800 text-white rounded-sm
+    @apply h-12 w-24  duration-300 bg-slate-800 text-white rounded-sm
     hover:bg-slate-700
     focus:bg-slate-800
     focus:ring-2 focus:ring focus:ring-slate-400
 }
 .btn-secondary {
-    @apply h-12 w-24 duration-200 bg-slate-100
+    @apply h-12 w-24 duration-300 bg-slate-100
     focus:bg-slate-200
     focus:ring-2 focus:ring focus:ring-slate-300
 }

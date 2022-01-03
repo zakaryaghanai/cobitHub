@@ -5,7 +5,7 @@
 
 * {
     @apply box-border;
-    font-family: Inter-roman, serif;
+    font-family: BalooDa2-Regular, serif;
 }
 
 body {
@@ -18,5 +18,5 @@ html, body {
 }
 
 #app {
-    @apply w-full h-full bg-zinc-50;
+    @apply w-full h-full bg-blue-50/50;
 }
