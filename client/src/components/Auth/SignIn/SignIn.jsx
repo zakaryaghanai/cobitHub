@@ -1,22 +1,28 @@
-import {React, Component} from 'react'
+import React from 'react'
 import * as HeroIcon  from '@heroicons/react/outline'
 
 import './SignIn.scss'
-import CustomInput from "../Input/CustomInput";
-import {Link} from "react-router-dom";
-class SignIn extends Component {
-    state = {
-        inputs: [
-            {attrs: {placeholder: 'mail@website.com', name: 'email'},
-                icon: {name: HeroIcon.AtSymbolIcon},
-                label: 'Email'
-            },
-            {attrs: {placeholder: 'password', type: 'password', name: 'password'},
-                icon: {name: HeroIcon.LockClosedIcon},
-                label: 'Password',
-                showPassword: true
-            },
-        ]
+import CustomInput from "../../Input/CustomInput"
+import {Link} from "react-router-dom"
+
+class SignIn extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputs: [
+                {attrs: {placeholder: 'mail@website.com', name: 'email', value: ''},
+                    icon: {name: HeroIcon.AtSymbolIcon},
+                    label: 'Email',
+                    firstFocus: true
+                },
+                {attrs: {placeholder: 'password', type: 'password', name: 'password', value: ''},
+                    icon: {name: HeroIcon.LockClosedIcon},
+                    label: 'Password',
+                    showPassword: true
+                },
+            ],
+            isAuthenticated: false
+        }
     }
 
     render() {
@@ -29,7 +35,7 @@ class SignIn extends Component {
                         ))}
                         <div className='flex gap-2'>
                             <span className='text-slate-500'>Don't have an account ?</span>
-                            <Link to='/signup'>
+                            <Link to='/auth/signup'>
                                 <p className='text-sky-500'>Sign up</p>
                             </Link>
                         </div>

@@ -12,12 +12,11 @@ class CustomInput extends Component {
     }
 
     showPasswordHandler = (e) =>  {
-
-        let newAttrs = this.state.attrs
-        newAttrs.type = 'text'
-        this.setState({
-            showPassword : true,
-            attr : {...newAttrs}
+        this.setState((prevState, props) => {
+            return {
+                showPassword : true,
+                attrs : {...prevState.attrs, type: 'text'}
+            }
         })
     }
 
@@ -26,19 +25,68 @@ class CustomInput extends Component {
         newAttrs.type = 'password'
         this.setState({
             showPassword : false,
-            attr : {...newAttrs}
+            attrs : {...newAttrs}
         })
+    }
+
+    changeHandler = (e) => {
+        this.setState((prevState) => {
+            prevState.attrs.value = e.target.value
+            return prevState
+        })
+
+    }
+
+    onFocusHandler = (e) => {
+        if(this.props.icon) {
+            let icon = e.target.previousElementSibling
+            icon.classList.add('active')
+        }
+    }
+
+    onBlurHandler = (e) => {
+        if(this.props.icon) {
+            let icon = e.target.previousElementSibling
+            icon.classList.remove('active')
+        }
+    }
+
+    componentDidMount = () => {
+        if(this.elementToFocus) {
+            this.elementToFocus.focus()
+        }
+    }
+
+    initFirstFocusHandler = (element) => {
+        if(element) {
+            element.focus()
+        }
     }
 
     render = () => {
 
-        let icon = null;
-        let eyeIcon = null;
-        let label = null;
+        let icon = null
+        let eyeIcon = null
+        let label = null
+        let changeHandler = null
+        let firstFocus = null
+
+        if(this.props.attrs.hasOwnProperty('value')){
+            changeHandler = {
+                onChange: this.changeHandler
+            }
+        }
+
+        if(this.props.firstFocus) {
+            firstFocus = {
+                ref : this.initFirstFocusHandler
+            }
+        }
 
         if(this.props.label) {
             label = <span className='custom-input-label'>{this.props.label}</span>
         }
+
         if ( this.props.icon ) {
             icon = React.createElement(this.props.icon.name, {className: 'icon ' + this.props.icon.className});
 
@@ -56,7 +104,8 @@ class CustomInput extends Component {
                 {label}
                 <div className='custom-input flex items-center overflow-hidden'>
                     {icon}
-                    <input {...this.state.attrs}/>
+                    <input {...this.state.attrs} {...changeHandler}
+                           {...firstFocus} onFocus={this.onFocusHandler} onBlur={this.onBlurHandler}/>
                     {eyeIcon}
                 </div>
             </div>

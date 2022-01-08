@@ -10,7 +10,7 @@ class GlobalNav extends Component {
     state = {
         links: [
             {name: 'Blog', to: 'blog'},
-            {name: 'Join', to: 'signup'}
+            {name: 'Join', to: 'auth/signup'}
         ],
         showTopbar: false,
     }
@@ -69,7 +69,7 @@ class GlobalNav extends Component {
                         onClick={this.toggleNavbarDropDownHandler}>
                     <HeroIcon.MenuIcon className="h-6 w-6 text-zinc-900"/>
                 </button>
-                <Link to='signin'>
+                <Link to='auth/signin'>
                     <button
                         className='button h-12 w-24 duration-300 bg-white hidden lg:block
                             hover:bg-slate-50
@@ -78,7 +78,7 @@ class GlobalNav extends Component {
                         sign in
                     </button>
                 </Link>
-                <Link to='signup'>
+                <Link to='auth/signup'>
                     <button
                         className='button h-12 w-24 duration-300 bg-sky-800 text-white rounded-sm hidden lg:block
                             hover:bg-sky-700
