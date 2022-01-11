@@ -1,36 +1,29 @@
 import React from 'react'
+import CustomInput from "../../../components/Input/CustomInput"
 import * as HeroIcon  from '@heroicons/react/outline'
-
-import './SignIn.scss'
-import CustomInput from "../../Input/CustomInput"
 import {Link} from "react-router-dom"
+import './SignIn.scss'
 
-class SignIn extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputs: [
-                {attrs: {placeholder: 'mail@website.com', name: 'email', value: ''},
-                    icon: {name: HeroIcon.AtSymbolIcon},
-                    label: 'Email',
-                    firstFocus: true
-                },
-                {attrs: {placeholder: 'password', type: 'password', name: 'password', value: ''},
-                    icon: {name: HeroIcon.LockClosedIcon},
-                    label: 'Password',
-                    showPassword: true
-                },
-            ],
-            isAuthenticated: false
-        }
-    }
+const SignIn = () => {
+    const inputs = [
+        {attrs: {placeholder: 'mail@website.com', type: 'email', name: 'email', value: ''},
+            icon: {name: HeroIcon.AtSymbolIcon},
+            label: 'Email',
+            firstFocus: true
+        },
+        {attrs: {placeholder: 'password', type: 'password', name: 'password', value: ''},
+            icon: {name: HeroIcon.LockClosedIcon},
+            label: 'Password',
+            showPassword: true
+        },
+    ]
 
-    render() {
-        return (
+    return(
+        <React.Suspense fallback={<h1>Loading profile...</h1>}>
             <div className='register-view'>
                 <div className='register-card'>
                     <div className='inputs'>
-                        {this.state.inputs.map((attrs, index) => (
+                        {inputs.map((attrs, index) => (
                             <CustomInput key={index} {...attrs} />
                         ))}
                         <div className='flex gap-2'>
@@ -48,8 +41,8 @@ class SignIn extends React.Component {
                     </div>
                 </div>
             </div>
-        )
-    }
+        </React.Suspense>
+    )
 }
 
 

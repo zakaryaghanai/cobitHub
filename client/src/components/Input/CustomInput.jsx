@@ -1,116 +1,108 @@
-import React, { Component} from "react";
+import React, {useState} from "react";
 import './CustomInput.scss';
 
-import * as HeroIcon  from '@heroicons/react/outline'
+import * as HeroIcon from '@heroicons/react/outline'
 
-class CustomInput extends Component {
+const CustomInput = (props) => {
 
-    state = {
-        attrs: this.props.attrs ? {...this.props.attrs} : '',
-        showPasswordHandler: (this.props.showPassword && this.props.attrs.type === 'password') ?? false,
-        showPassword: false,
-    }
+    let [showPassword, setShowPassword] = useState(false)
+    let [attrs, setAttrs] = useState(props.attrs)
 
-    showPasswordHandler = (e) =>  {
-        this.setState((prevState, props) => {
-            return {
-                showPassword : true,
-                attrs : {...prevState.attrs, type: 'text'}
-            }
+    const showPasswordHandler = () => {
+        setShowPassword(true)
+
+        setAttrs(prevState => {
+            let newAttrs = Object.assign({}, prevState)
+            newAttrs.type = 'text'
+            return newAttrs
         })
     }
 
-    hidePasswordHandler = (e) =>  {
-        let newAttrs = this.state.attrs
-        newAttrs.type = 'password'
-        this.setState({
-            showPassword : false,
-            attrs : {...newAttrs}
+    const hidePasswordHandler = () => {
+        setShowPassword(false)
+        setAttrs(prevState => {
+            let newAttrs = Object.assign({}, prevState)
+            newAttrs.type = 'password'
+            return newAttrs
         })
     }
 
-    changeHandler = (e) => {
-        this.setState((prevState) => {
-            prevState.attrs.value = e.target.value
-            return prevState
-        })
+    const handleChange = (e) => {
 
+        setAttrs(prevState => {
+            let newState = Object.assign({}, prevState)
+            newState.value = e.target.value
+            return newState
+        })
     }
 
-    onFocusHandler = (e) => {
-        if(this.props.icon) {
+    const onFocusHandler = (e) => {
+        if (props.icon) {
             let icon = e.target.previousElementSibling
             icon.classList.add('active')
         }
     }
 
-    onBlurHandler = (e) => {
-        if(this.props.icon) {
+    const onBlurHandler = (e) => {
+        if (props.icon) {
             let icon = e.target.previousElementSibling
             icon.classList.remove('active')
         }
     }
 
-    componentDidMount = () => {
-        if(this.elementToFocus) {
-            this.elementToFocus.focus()
-        }
-    }
-
-    initFirstFocusHandler = (element) => {
-        if(element) {
+    const initFirstFocusHandler = (element) => {
+        if (element) {
             element.focus()
         }
     }
 
-    render = () => {
+    let icon = null
+    let eyeIcon = null
+    let label = null
+    let handleInputChange = null
+    let firstFocus = null
 
-        let icon = null
-        let eyeIcon = null
-        let label = null
-        let changeHandler = null
-        let firstFocus = null
-
-        if(this.props.attrs.hasOwnProperty('value')){
-            changeHandler = {
-                onChange: this.changeHandler
-            }
+    if (attrs.hasOwnProperty('value')) {
+        handleInputChange = {
+            onChange: handleChange
         }
-
-        if(this.props.firstFocus) {
-            firstFocus = {
-                ref : this.initFirstFocusHandler
-            }
-        }
-
-        if(this.props.label) {
-            label = <span className='custom-input-label'>{this.props.label}</span>
-        }
-
-        if ( this.props.icon ) {
-            icon = React.createElement(this.props.icon.name, {className: 'icon ' + this.props.icon.className});
-
-        }
-
-        if ( this.props.showPassword && this.props.attrs.type === 'password') {
-            eyeIcon = <HeroIcon.EyeOffIcon className='eye-icon' onClick={this.showPasswordHandler}/>
-            if ( this.state.showPassword ) {
-                eyeIcon = <HeroIcon.EyeIcon className='eye-icon eye-icon-active' onClick={this.hidePasswordHandler}/> ;
-            }
-        }
-
-        return (
-            <div className='custom-input-wrap'>
-                {label}
-                <div className='custom-input flex items-center overflow-hidden'>
-                    {icon}
-                    <input {...this.state.attrs} {...changeHandler}
-                           {...firstFocus} onFocus={this.onFocusHandler} onBlur={this.onBlurHandler}/>
-                    {eyeIcon}
-                </div>
-            </div>
-        )
     }
-}
 
+    if (props.firstFocus) {
+        firstFocus = {
+            ref: initFirstFocusHandler
+        }
+    }
+
+    if (props.label) {
+        label = <span className='custom-input-label'>{props.label}</span>
+    }
+
+    if (props.icon) {
+        icon = React.createElement(props.icon.name, {className: 'icon ' + props.icon.className});
+
+    }
+
+    if (props.showPassword) {
+        eyeIcon = <HeroIcon.EyeOffIcon className='eye-icon' onClick={showPasswordHandler}/>
+        if (showPassword) {
+            eyeIcon = <HeroIcon.EyeIcon className='eye-icon eye-icon-active' onClick={hidePasswordHandler}/>;
+        }
+    }
+
+    return (
+        <div className='custom-input-wrap'>
+            {label}
+            <div className='custom-input flex items-center overflow-hidden'>
+                {icon}
+                <input {...attrs}
+                       {...handleInputChange}
+                       {...firstFocus}
+                       onFocus={onFocusHandler}
+                       onBlur={onBlurHandler}/>
+                {eyeIcon}
+            </div>
+        </div>
+    )
+}
 export default CustomInput;

@@ -18,5 +18,7 @@ html, body {
 }
 
 #app {
-    @apply w-full h-full bg-blue-50/50;
+    @apply grid w-full h-full bg-blue-50/50;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
 }
