@@ -1,0 +1,6 @@
+.ant-checkbox-inner {
+    @apply bg-transparent
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+    @apply bg-sky-500 border-sky-500 hover:border-sky-500;
+}

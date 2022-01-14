@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, memo, useMemo} from "react";
 import './CustomInput.scss';
 
 import * as HeroIcon from '@heroicons/react/outline'
@@ -28,7 +28,6 @@ const CustomInput = (props) => {
     }
 
     const handleChange = (e) => {
-
         setAttrs(prevState => {
             let newState = Object.assign({}, prevState)
             newState.value = e.target.value
@@ -50,17 +49,18 @@ const CustomInput = (props) => {
         }
     }
 
-    const initFirstFocusHandler = (element) => {
-        if (element) {
-            element.focus()
+    const initFirstFocusHandler = useMemo(() => (element) => {
+            if (element) {
+                element.focus()
+            }
         }
-    }
+        , [])
 
     let icon = null
     let eyeIcon = null
     let label = null
     let handleInputChange = null
-    let firstFocus = null
+    let firstFocusRef = null
 
     if (attrs.hasOwnProperty('value')) {
         handleInputChange = {
@@ -69,13 +69,13 @@ const CustomInput = (props) => {
     }
 
     if (props.firstFocus) {
-        firstFocus = {
+        firstFocusRef = {
             ref: initFirstFocusHandler
         }
     }
 
     if (props.label) {
-        label = <span className='custom-input-label'>{props.label}</span>
+        label = <span className='text-sm text-slate-600'>{props.label}</span>
     }
 
     if (props.icon) {
@@ -95,9 +95,14 @@ const CustomInput = (props) => {
             {label}
             <div className='custom-input flex items-center overflow-hidden'>
                 {icon}
-                <input {...attrs}
+                <input className='w-full h-11 text-sm px-10 py-2 bg-zinc-400/5 rounded-sm text-zinc-800
+                focus:outline-none focus:ring-2 focus:ring-inset ring-transparent
+                focus:ring-sky-500 duration-100
+                focus:bg-white
+                placeholder:text-zinc-400'
+                       {...attrs}
                        {...handleInputChange}
-                       {...firstFocus}
+                       {...firstFocusRef}
                        onFocus={onFocusHandler}
                        onBlur={onBlurHandler}/>
                 {eyeIcon}
@@ -105,4 +110,4 @@ const CustomInput = (props) => {
         </div>
     )
 }
-export default CustomInput;
+export default memo(CustomInput);

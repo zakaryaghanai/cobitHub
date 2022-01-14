@@ -23,3 +23,7 @@
     font-family: BalooDa2-ExtraBold;
     src: url('../fonts/Baloo_Da_2/BalooDa2-ExtraBold.ttf');
 }
+@font-face {
+    font-family: VarelaRound-Regular;
+    src: url('../fonts/VarelaRound-Regular.ttf');
+}

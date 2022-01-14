@@ -2,16 +2,6 @@
     @apply relative;
 }
 
-.custom-input input{
-    @apply w-full px-10 py-2 bg-blue-50/50 rounded-md text-slate-800;
-    @apply focus:outline-none focus:ring-2 focus:ring-inset ring-transparent
-    focus:ring-sky-500 duration-100
-    focus:bg-white h-12 text-lg;
-}
-.custom-input input::placeholder {
-    @apply text-slate-400 ;
-}
-
 .custom-input .icon {
     @apply absolute h-2/5 pointer-events-none left-2 text-slate-500
 }
@@ -25,8 +15,4 @@
 }
 .custom-input .eye-icon-active {
     @apply text-sky-500
-}
-
-.custom-input-wrap .custom-input-label {
-    @apply text-slate-500
 }

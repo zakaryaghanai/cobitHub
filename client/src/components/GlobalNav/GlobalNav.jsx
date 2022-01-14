@@ -1,15 +1,120 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState, memo, useLayoutEffect, useRef} from "react";
 
 import * as HeroIcon from '@heroicons/react/outline'
 import {Link} from "react-router-dom";
 
 import './GlobalNav.scss';
 
+const withInnerWidth = Component => props => {
+    const [innerWidth, setInnderWidth] = useState(window.innerWidth)
+
+    const handlerResize = useCallback(() => {
+        setInnderWidth(window.innerWidth)
+        console.log(innerWidth)
+    }, [innerWidth])
+    useEffect(() => {
+        console.log(innerWidth)
+        window.addEventListener('resize', handlerResize)
+
+        return () => {
+            window.removeEventListener('resize', handlerResize)
+        }
+    })
+
+    return <Component {...props} innerWidth={innerWidth}/>
+}
+
+const withVerticalScroll = Component => props =>{
+    const [scrollValue, setsSrollValue] = useState(window.scrollY)
+
+    const handleVerticalScroll = () => {
+        setsSrollValue(window.scrollY)
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleVerticalScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleVerticalScroll)
+        }
+    }, [scrollValue])
+
+    return <Component {...props} scrollValue={scrollValue}/>
+}
+
+const useWindowScroll = () => {
+    const [scrollValue, setsSrollValue] = useState(window.scrollY)
+
+    const handleVerticalScroll = () => {
+        setsSrollValue(window.scrollY)
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleVerticalScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleVerticalScroll)
+        }
+    }, [scrollValue])
+
+    return scrollValue;
+}
+
+
+const getHorizontalLinks = (links) => {
+    return (
+        <ul className='items flex gap-10 h-full items-center'>
+            {links.map((link, index) => (
+                <Link key={index} to={link.to} className='item text-slate-900'>
+                    <span className='w-full text-zinc-800 hover:underline hover:decoration-2'> {link.name} </span>
+                </Link>
+            ))}
+        </ul>
+    )
+}
+
+const getVertivalLinks = ({links, handleHideDropDown}) => {
+    return (
+        <ul className='items flex flex-col h-full items-start md:hidden'>
+            {links.map((link, index) => (
+                <Link onClick={handleHideDropDown} key={index} to={link.to}
+                      className='w-full text-slate-800 cursor-pointer p-4 hover:bg-zinc-50 active:bg-zinc-100'>
+                    <span className='w-full text-zinc-800'> {link.name} </span>
+                </Link>
+            ))}
+        </ul>
+    )
+}
+
 const GlobalNav = () => {
 
+    let headerDefaultStyle = ' fixed zb-10 '
+    let headerDefaulScrollValue = 100
+    let windwoScrollValue = useWindowScroll()
+
+    let headerRef = useRef(null)
+
+    let  [lastScrollValue, setLastScrollValue] = useState(0)
+    let [headerStyle, setHeaderStyle] = useState(headerDefaultStyle)
+
+    useLayoutEffect(() => {
+        if(windwoScrollValue > lastScrollValue && windwoScrollValue > headerDefaulScrollValue ) {
+            setHeaderStyle(headerStyle + ' -top-32 ')
+
+            console.log('hide')
+        } else if(lastScrollValue > windwoScrollValue) {
+            console.log('show')
+            setHeaderStyle(headerDefaultStyle)
+        }
+
+        setLastScrollValue(windwoScrollValue)
+
+    })
+
     const links = [
-        {name: 'Blog', to: 'blog'},
-        {name: 'Join', to: 'auth/signup'}
+        {name: 'Blog', to: '/blog'},
+        {name: 'Join', to: '/auth/signup'},
+        {name: 'Tutorial', to: '/tutorials'}
     ]
 
     let [showTopbar, setShowTopbar] = useState(false)
@@ -20,31 +125,14 @@ const GlobalNav = () => {
         })
     }
 
-    const hideDropDownHandler = () => {
+    const handleHideDropDown = () => {
         setShowTopbar(false)
     }
 
 
-    let horizontalLinks = (
-        <ul className='items flex gap-10 h-full items-center'>
-            {links.map((link, index) => (
-                <Link key={index} to={link.to} className='item text-slate-900'>
-                    <span className='w-full text-zinc-800 hover:underline hover:decoration-2'> {link.name} </span>
-                </Link>
-            ))}
-        </ul>
-    );
+    let horizontalLinks = getHorizontalLinks(links)
 
-    let verticalLinks = (
-        <ul className='items flex flex-col h-full items-start md:hidden'>
-            {links.map((link, index) => (
-                <Link onClick={hideDropDownHandler} key={index} to={link.to}
-                      className='w-full text-slate-800 cursor-pointer p-4 hover:bg-zinc-50 active:bg-zinc-100'>
-                    <span className='w-full text-zinc-800'> {link.name} </span>
-                </Link>
-            ))}
-        </ul>
-    );
+    let verticalLinks = getVertivalLinks({links, handleHideDropDown})
 
     let headerButtons = (
         <div className='header-buttons'>
@@ -79,7 +167,7 @@ const GlobalNav = () => {
     );
 
     return (
-        <header className='relative z-10'>
+        <header className={headerStyle} ref={headerRef}>
             <div className='w-full bg-white py-4 px-8 flex gap-10 shadow-sm relative'>
                 <div className='logo flex items-center justify-between flex-grow md:flex-grow-0'>
                     <Link to='/'>
