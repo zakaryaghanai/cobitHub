@@ -1,12 +1,15 @@
 import React from 'react'
 
+import withOverlayBackground from '../../components/Hoc/withOverlayBackground'
+
 const NotFound = () => {
     return (
-        <div className='flex justify-center pt-40 text-slate-800'>
-            <p className='text-6xl'>Page Not Found</p>
-        </div>
-
+        <React.Fragment>
+            <div className='h-full w-full flex items-center justify-center z-10'>
+                <span className='text-2xl md:text-3xl lg:text-6xl font-bold text-slate-800'>Page Not Found</span>
+            </div>
+        </React.Fragment>
     )
 }
 
-export default NotFound
+export default withOverlayBackground(NotFound)

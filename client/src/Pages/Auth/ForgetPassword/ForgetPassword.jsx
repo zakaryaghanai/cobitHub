@@ -25,7 +25,7 @@ const ForgetPassword = () => {
                 <div className='w-full md:w-[450px] max-w-[450px] bg-white/80 flex flex-col gap-4 p-10 select-none rounded-md shadow-sm'>
                     <div className='flex flex-col gap-5'>
 
-                        <span className='text-slate-700 text-md bg-sky-200/30 text-sky-800 py-5 text-md text-center text-left'>
+                        <span className='text-slate-600 text-md bg-sky-200/30 text-sky-800 py-5 text-md text-center text-left'>
                             Enter email address associated with your account
                         </span>
                     </div>
@@ -35,7 +35,7 @@ const ForgetPassword = () => {
 
                     <LoadingButton withLoader={true} text='Send' changeButtonState={handleClickCustomButton}/>
 
-                    <Link to='/signin'>
+                    <Link to='/auth/signin'>
                         <span className='pt-2 text-sm cursor-pointer text-sky-500'>Go back to sign in page</span>
                     </Link>
                 </div>

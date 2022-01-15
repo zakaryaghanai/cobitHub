@@ -102,7 +102,7 @@ const SignUp = () => {
                             </button>
                         </div>
 
-                        <Link to='/signin'>
+                        <Link to='/auth/signin'>
                             <div className='text-sm flex gap-2 pt-3'>
                                 <span className='text-slate-500'>Already have and account?</span>
                                 <span className='font-bold text-zinc-700 cursor-pointer hover:text-sky-500'>Sign in</span>
