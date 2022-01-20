@@ -1,19 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import {Spin} from "antd";
 import {LoadingOutlined} from "@ant-design/icons";
 
 const LoadingButton = (props) => {
 
     let withLoader = props.withLoader ?? false
-    let [isLoading, setIsLoading] = useState(false)
+    let isLoading = props.showLoader
     let buttonText = props.text ?? 'Button'
-
-    const handleClick = () => {
-        setTimeout(() => {
-            setIsLoading(props.changeButtonState())
-        }, 200)
-    }
-
 
     let button = () => {
 
@@ -29,7 +22,7 @@ const LoadingButton = (props) => {
                 <button className={`w-full ${isLoading ? 'bg-sky-500/10' : 'bg-sky-500'} text-white px-4 h-11 
                             rounded-md duration-200
                             ${isLoading ? '' : 'hover:bg-sky-500/80 focus:bg-sky-500 focus:ring-2 focus:ring focus:ring-sky-200'}`}
-                        onClick={handleClick} disabled={isLoading}>
+                        onClick={props.click} disabled={isLoading}>
                     {spinner}
                     { isLoading ? '': <span className='text-sm font-bold'>{buttonText}</span>}
                 </button>
@@ -40,7 +33,7 @@ const LoadingButton = (props) => {
             <button className={`w-full bg-sky-500 text-white px-4 h-11 
                             rounded-md duration-200
                             hover:bg-sky-500/80 focus:bg-sky-500 focus:ring-2 focus:ring focus:ring-sky-200`}
-                    onClick={handleClick}>
+                    onClick={props.click}>
                 <span className='text-sm font-bold'>{buttonText}</span>
             </button>
         )

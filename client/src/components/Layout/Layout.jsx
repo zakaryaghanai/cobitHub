@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from "react-router-dom"
 
-import GlobalNav from "../../components/GlobalNav/GlobalNav";
+import GlobalNav from "../GlobalNav/GlobalNav";
 
 const Layout = () => {
     return(

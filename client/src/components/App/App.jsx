@@ -11,23 +11,25 @@ import NotFound from "../NotFound/NotFound";
 // Css Import
 import './App.scss'
 import Home from "../Home/Home";
+import ProtectedRoute from "../../hooks/ProtectedRoute";
 
 const App = () => {
     return (
         <React.Fragment>
             <Routes>
-                <Route path='auth' element={<Auth /> }>
+                <Route path='auth' element={<Auth/>}>
                     <Route path='signin' element={<SignIn/>}/>
                     <Route path='signup' element={<SignUp/>}/>
                     <Route path='forgetpassword' element={<ForgetPassword/>}/>
                 </Route>
 
-                <Route path='/' element={<Layout />}>
-                    <Route index element={<Home />}/>
-                    <Route path='blog' element={<Blog />}/>
+                <Route path='/' element={<Layout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route element={<ProtectedRoute/>}>
+                        <Route path='blog' element={<Blog/>}/>
+                    </Route>
                     <Route path="*" element={<NotFound/>}/>
                 </Route>
-
             </Routes>
         </React.Fragment>
 

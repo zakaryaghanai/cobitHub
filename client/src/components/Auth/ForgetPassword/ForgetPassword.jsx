@@ -1,21 +1,29 @@
-import React from 'react'
-import CustomInput from "../../../components/Input/CustomInput"
+import React, {useState} from 'react'
+import CustomInput from "../../Input/CustomInput"
 import * as HeroIcon from '@heroicons/react/outline'
 import {Link} from "react-router-dom"
-import LoadingButton from "../../../components/Buttons/Loadingbutton";
+import LoadingButton from "../../Buttons/Loadingbutton";
 
 const ForgetPassword = () => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [email, setEmail] = useState('admin')
     const inputs = [
         {
             attrs: {placeholder: 'mail@website.com', type: 'email', name: 'email', value: ''},
             icon: {name: HeroIcon.AtSymbolIcon},
             label: 'Email',
-            firstFocus: true
+            firstFocus: true,
+            value: email,
+            valueSetter: setEmail
         }
     ]
 
     const handleClickCustomButton = () => {
-        return true
+        setIsLoading(true)
+
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 3000)
     }
 
     return (
@@ -33,7 +41,7 @@ const ForgetPassword = () => {
                         <CustomInput key={index} {...attrs} />
                     ))}
 
-                    <LoadingButton withLoader={true} text='Send' changeButtonState={handleClickCustomButton}/>
+                    <LoadingButton text='Send' withLoader={true} showLoader={isLoading} click={handleClickCustomButton} />
 
                     <Link to='/auth/signin'>
                         <span className='pt-2 text-sm cursor-pointer text-sky-500'>Go back to sign in page</span>

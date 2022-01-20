@@ -1,6 +1,6 @@
 import React from 'react'
 
-import withOverlayBackground from '../../components/Hoc/withOverlayBackground'
+import withOverlayBackground from '../../hooks/withOverlayBackground'
 
 const NotFound = () => {
     return (

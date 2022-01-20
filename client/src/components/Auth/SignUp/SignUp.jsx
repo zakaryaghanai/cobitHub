@@ -1,74 +1,76 @@
-import React, { useState } from 'react'
-import CustomInput from "../../../components/Input/CustomInput"
-import * as HeroIcon from '@heroicons/react/outline'
-import {Link} from "react-router-dom"
-import { Checkbox } from 'antd';
-import 'antd/dist/antd.css';
+import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
+import {UserIcon, AtSymbolIcon, LockClosedIcon}  from '@heroicons/react/outline'
+import CustomInput from "../../Input/CustomInput"
+import './SignUp.scss'
+import LoadingButton from "../../Buttons/Loadingbutton";
 
-import './SignIn.css'
+const SignUp = () => {
 
-import LoadingButton from "../../../components/Buttons/Loadingbutton";
+    const [isLoading, setIsLoading] = useState(false)
+    const [firstName, setFirstName] = useState('')
+    const [famillyName, setFamillyName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
-const SignIn = () => {
-
-    const [rememberMeIsChecked, setRememberMeIsChecked] = useState(false)
-
-    const inputs = [
-        {
-            attrs: {placeholder: 'mail@website.com', type: 'email', name: 'email', value: ''},
-            icon: {name: HeroIcon.AtSymbolIcon},
-            label: 'Email',
-            firstFocus: true
+    let inputs = [
+        {attrs: {placeholder: 'John', name: 'firstName', value: ''},
+            icon: {name: UserIcon},
+            label: 'First Name',
+            firstFocus: true,
+            value: firstName,
+            valueSetter: setFirstName,
         },
-        {
-            attrs: {placeholder: 'password', type: 'password', name: 'password', value: ''},
-            icon: {name: HeroIcon.LockClosedIcon},
+        {attrs: {placeholder: 'Doe', name: 'famillyName', value: ''},
+            icon: {name: UserIcon},
+            label: 'Familly Name',
+            value: famillyName,
+            valueSetter: setFamillyName
+        },
+        {attrs: {placeholder: 'mail@website.com', type: 'email', name: 'email', value: ''},
+            icon: {name: AtSymbolIcon},
+            label: 'Email',
+            value: email,
+            valueSetter: setEmail
+        },
+        {attrs: {placeholder: 'Min. 8 characters', type: 'password', name: 'password', value: ''},
+            icon: {name: LockClosedIcon},
             label: 'Password',
-            showPassword: true
+            showPassword: true,
+            value: password,
+            valueSetter: setPassword,
+        },
+        {attrs: {placeholder: 'Min. 8 characters', type: 'password', name: 'confirmPassword', value: ''},
+            icon: {name: LockClosedIcon},
+            label: 'Confirm Password',
+            showPassword: true,
+            value: confirmPassword,
+            valueSetter: setConfirmPassword,
         },
     ]
 
     const handleClickCustomButton = () => {
-        return true;
-    }
+        setIsLoading(true)
 
-    const handleRememberMe = () => {
-        setRememberMeIsChecked(prevState => {
-            return !prevState
-        })
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 3000)
     }
 
     return (
         <div className='relative flex w-full'>
-            <div className='w-full overflow-hidden shadow-md
+            <div className='w-full rounded-none overflow-hidden shadow-md rounded-md
                 flex items-center justify-center px-1 py-4'>
 
-                <div className='w-full md:w-[450px] max-w-[450px] bg-white/80 flex flex-col gap-4 p-10 select-none rounded-md shadow-sm'>
+                <div className='w-full md:w-[450px] max-w-[450px] bg-white/80 flex flex-col gap-4 p-10
+                select-none rounded-md shadow-sm'>
                     {inputs.map((attrs, index) => (
                         <CustomInput key={index} {...attrs} />
                     ))}
 
-                    <div className='flex text-zinc-700 items-center justify-between h-11 text-sm'>
-                        <div className='flex items-center gap-2 '>
-                            <Checkbox
-                                checked={rememberMeIsChecked}
-                                onChange={handleRememberMe}
-                                name='rememberMe'
-                                value={rememberMeIsChecked}
-                                className='stroke-cyan-500'
-                            >
-                                <span>Remember me</span>
-                            </Checkbox>
-
-                        </div>
-                        <Link to='/auth/forgetpassword'>
-                            <span className='cursor-pointer hover:text-sky-500 font-bold'>Forget password</span>
-                        </Link>
-                    </div>
-
-                    <LoadingButton withLoader={true} text='Sign in' changeButtonState={handleClickCustomButton}/>
-
-                    <div className='relative flex flex-col items-center pt-4 gap-1'>
+                    <LoadingButton text='Sign up' withLoader={true} showLoader={isLoading} click={handleClickCustomButton} />
+                    <div className='relative flex flex-col justify-center items-center pt-4 gap-1'>
                         <div className='flex w-full'>
                             <hr className='w-full text-zinc-200'/>
                             <span className='w-full relative -top-3 text-sm text-slate-600 px-3'>or continue with</span>
@@ -76,8 +78,9 @@ const SignIn = () => {
                         </div>
                         <div className='social flex justify-center gap-5 items-center'>
                             <button
-                                className='h-11 w-11 bg-zinc-50 shadow-sm rounded-full flex items-center justify-center
-                                focus:ring-2 focus:ring focus:ring-zinc-200 duration-200'>
+                                className='relative h-11 w-11 bg-zinc-50 shadow-sm rounded-full flex items-center justify-center
+                                focus:ring-2 focus:ring focus:ring-zinc-200 duration-100
+                                hover:bg-white hover:-translate-y-[3px]'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="25px" height="25px">
                                     <path fill="#FFC107"
                                           d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
@@ -91,7 +94,8 @@ const SignIn = () => {
                             </button>
                             <button
                                 className='h-11 w-11 bg-zinc-50 shadow-sm rounded-full flex items-center justify-center
-                                focus:ring-2 focus:ring focus:ring-zinc-200 duration-200'>
+                                focus:ring-2 focus:ring focus:ring-zinc-200 duration-100
+                                hover:bg-white hover:-translate-y-[3px]'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="27px" height="27px">
                                     <linearGradient id="CXanuwD9EGkBgTn76_1mxa" x1="9.993" x2="40.615" y1="-299.993"
                                                     y2="-330.615" gradientTransform="matrix(1 0 0 -1 0 -290)"
@@ -113,14 +117,16 @@ const SignIn = () => {
                             </button>
                             <button
                                 className='h-11 w-11 bg-zinc-50 shadow-sm rounded-full flex items-center justify-center
-                                focus:ring-2 focus:ring focus:ring-zinc-200 duration-200'>
+                                focus:ring-2 focus:ring focus:ring-zinc-200 duration-100
+                                hover:bg-white hover:-translate-y-[3px]'>
                                 <svg fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="27px" height="27px">    <path d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"/></svg>
                             </button>
                         </div>
-                        <Link to='/auth/signup'>
+
+                        <Link to='/auth/signin'>
                             <div className='text-sm flex gap-2 pt-3'>
-                                <span className='text-slate-500'>Don't have and account?</span>
-                                <span className='font-bold text-zinc-700 cursor-pointer hover:text-sky-500'>Sign up for free</span>
+                                <span className='text-slate-500'>Already have and account?</span>
+                                <span className='font-bold text-zinc-700 cursor-pointer hover:text-sky-500'>Sign in</span>
                             </div>
                         </Link>
                     </div>
@@ -130,5 +136,4 @@ const SignIn = () => {
     )
 }
 
-
-export default SignIn;
+export default SignUp;

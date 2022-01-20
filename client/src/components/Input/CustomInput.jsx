@@ -7,6 +7,7 @@ const CustomInput = (props) => {
 
     let [showPassword, setShowPassword] = useState(false)
     let [attrs, setAttrs] = useState(props.attrs)
+    let [value, setValue] = useState(props.value)
 
     const showPasswordHandler = () => {
         setShowPassword(true)
@@ -28,11 +29,8 @@ const CustomInput = (props) => {
     }
 
     const handleChange = (e) => {
-        setAttrs(prevState => {
-            let newState = Object.assign({}, prevState)
-            newState.value = e.target.value
-            return newState
-        })
+        setValue(e.target.value)
+        props.valueSetter(e.target.value)
     }
 
     const onFocusHandler = (e) => {
@@ -62,7 +60,7 @@ const CustomInput = (props) => {
     let handleInputChange = null
     let firstFocusRef = null
 
-    if (attrs.hasOwnProperty('value')) {
+    if (props.hasOwnProperty('value')) {
         handleInputChange = {
             onChange: handleChange
         }
@@ -100,6 +98,7 @@ const CustomInput = (props) => {
                 focus:ring-sky-500 duration-100
                 focus:bg-white
                 placeholder:text-zinc-400'
+                       value={value}
                        {...attrs}
                        {...handleInputChange}
                        {...firstFocusRef}
