@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import * as HeroIcon from '@heroicons/react/outline'
 import {Link, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import {Menu, Dropdown, Avatar} from 'antd'
 
 import './GlobalNav.scss';
 
+import AvatarDropDown from "./AvatarDropDown";
 const GlobalNav = () => {
 
     const [showTopbar, setShowTopbar] = useState(false)
@@ -28,30 +28,10 @@ const GlobalNav = () => {
     }
 
     const handleSingOut = () => {
-        localStorage.removeItem('isAuthenticated')
         signOut(() => {
             navigate('/')
         })
     }
-
-    const menu = (
-        <Menu className='p-2'>
-            <Menu.Item key="0">
-                <div className='flex gap-2 text-slate-800 cursor-pointer px-2'>
-                    <span className='text-zinc-800'>Settings</span>
-                    <HeroIcon.CogIcon className="h-5 w-5 text-zinc-900"/>
-                </div>
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key="1">
-                <div onClick={handleSingOut} className='flex items-start gap-2 text-slate-800 cursor-pointer px-2'>
-                    <span className='text-zinc-800'>Sign out</span>
-                    <HeroIcon.LogoutIcon className="h-5 w-5 text-zinc-900"/>
-                </div>
-            </Menu.Item>
-        </Menu>
-    );
-
 
     const horizontalLinks = (
         <ul className='flex gap-10 h-full items-center'>
@@ -68,13 +48,7 @@ const GlobalNav = () => {
                 })}
             </div>
             {isAuthenticated ? (
-                <Dropdown overlay={menu} trigger={['click']}>
-                    <div className='flex items-center '>
-                        <a className="ant-dropdown-link">
-                            <Avatar size={35} className='p-2 text-slate-700 bg-zinc-100' icon={<HeroIcon.UserIcon />} />
-                        </a>
-                    </div>
-                </Dropdown>
+                <AvatarDropDown />
             ): null}
         </ul>
     )
@@ -114,8 +88,8 @@ const GlobalNav = () => {
     );
 
     return (
-        <header className='fixed z-50'>
-            <div className='w-full bg-white/60 backdrop-blur-2xl py-5 px-8 flex gap-10 shadow-sm relative'>
+        <header className='fixed z-50 '>
+            <div className='w-full h-[80px] bg-white/60 backdrop-blur-2xl py-2 px-8 flex gap-10 shadow-sm relative'>
                 <div className='logo flex items-center justify-between flex-grow md:flex-grow-0'>
                     <Link to='/'>
                         <div className='text-2xl font-bold text-slate-700'>Cobit<span
