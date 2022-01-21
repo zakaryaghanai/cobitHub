@@ -78,7 +78,7 @@ const GlobalNav = () => {
 
     let headerButtons = (
         <button type="button" aria-expanded="false"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400
+                className="inline-flex items-center h-[max-content] justify-center p-2 rounded-md text-gray-400
                                 hover:text-white hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset
                                  focus:ring-gray-400
                                  block md:hidden"
@@ -89,8 +89,8 @@ const GlobalNav = () => {
 
     return (
         <header className='fixed z-50 '>
-            <div className='w-full h-[80px] bg-white/60 backdrop-blur-2xl py-2 px-8 flex gap-10 shadow-sm relative'>
-                <div className='logo flex items-center justify-between flex-grow md:flex-grow-0'>
+            <div className='w-full h-[80px] items-center bg-white/60 backdrop-blur-2xl py-2 px-8 flex gap-10 shadow-sm relative'>
+                <div className='logo flex  justify-between flex-grow md:flex-grow-0'>
                     <Link to='/'>
                         <div className='text-2xl font-bold text-slate-700'>Cobit<span
                             className='text-orange-500'>.</span>Hub

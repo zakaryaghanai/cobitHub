@@ -8,7 +8,7 @@ import useDomClick from "../../hooks/useDomClick";
 const dropDownMenu = ({handleSignOut}) => {
 
     return (
-        <div className='avatarDropDownItem relative top-3 bg-white w-[max-content] flex flex-col divide-y divide-zinc-100
+        <div className='avatarDropDownItem hidden md:block relative top-3 bg-white w-[max-content] flex flex-col divide-y divide-zinc-100
         shadow-md rounded-sm'>
             <div className='flex gap-3 items-center p-4'>
                 <div className='w-14 h-14 border-0 rounded-full overflow-hidden'>
