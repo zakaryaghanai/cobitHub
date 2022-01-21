@@ -6,6 +6,10 @@ const app = express();
 
 app.use('/', express.static(path.join(__dirname, 'www')))
 
+app.get('/api', function (req, res) {
+    res.send('api')
+})
+
 app.get('/*', function (req, res) {
     res.sendFile(path.join(path.dirname(require.main.filename), 'www', 'index.html'), function (err) {
         if (err) {
