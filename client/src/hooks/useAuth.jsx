@@ -10,7 +10,7 @@ const useAuth = () => {
         isAuthenticated,
         signIn: (credentials) => {
             return new Promise(((resolve, reject) => {
-                axios.post('http://localhost:9000/api/auth/signin', credentials)
+                axios.post('/api/auth/signin', credentials)
                     .then(function (response) {
                         localStorage.setItem('accessToken', 'Bearer ' + response.data.accessToken)
                         setIsAuthenticated(true)
@@ -24,7 +24,7 @@ const useAuth = () => {
         },
         signup: (credentials) => {
             return new Promise(((resolve, reject) => {
-                axios.post('http://localhost:9000/api/auth/signup', credentials)
+                axios.post('/api/auth/signup', credentials)
                     .then(function (response) {
                         resolve(response)
                     })
@@ -34,7 +34,7 @@ const useAuth = () => {
             }))
         },
         signOut: () => {
-            axios.post('http://localhost:9000/api/auth/signout')
+            axios.post('/api/auth/signout')
                 .then(function () {
                     localStorage.removeItem('accessToken')
                     setIsAuthenticated(false)

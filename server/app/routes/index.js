@@ -1,8 +1,8 @@
-const router = require('express').Router();
 const express = require("express");
+const router = express.Router();
 const path = require("path");
 
-router.use('/', express.static(path.join(__dirname, 'www')))
+router.use('/', express.static(path.join(path.dirname(require.main.filename), 'www')))
 
 router.use('/api', require('./appRoutes'));
 
