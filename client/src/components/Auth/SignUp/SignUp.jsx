@@ -1,47 +1,50 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {UserIcon, AtSymbolIcon, LockClosedIcon}  from '@heroicons/react/outline'
 import CustomInput from "../../Input/CustomInput"
 import './SignUp.scss'
 import LoadingButton from "../../Buttons/Loadingbutton";
+import useAuth from "../../../hooks/useAuth";
 
 const SignUp = () => {
 
+    const {signup} = useAuth()
+    const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [firstName, setFirstName] = useState('')
-    const [famillyName, setFamillyName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
     let inputs = [
-        {attrs: {placeholder: 'John', name: 'firstName', value: ''},
+        {attrs: {placeholder: 'John', name: 'firstName'},
             icon: {name: UserIcon},
             label: 'First Name',
             firstFocus: true,
             value: firstName,
             valueSetter: setFirstName,
         },
-        {attrs: {placeholder: 'Doe', name: 'famillyName', value: ''},
+        {attrs: {placeholder: 'Doe', name: 'lastName'},
             icon: {name: UserIcon},
-            label: 'Familly Name',
-            value: famillyName,
-            valueSetter: setFamillyName
+            label: 'Last Name',
+            value: lastName,
+            valueSetter: setLastName
         },
-        {attrs: {placeholder: 'mail@website.com', type: 'email', name: 'email', value: ''},
+        {attrs: {placeholder: 'mail@website.com', type: 'email', name: 'email'},
             icon: {name: AtSymbolIcon},
             label: 'Email',
             value: email,
             valueSetter: setEmail
         },
-        {attrs: {placeholder: 'Min. 8 characters', type: 'password', name: 'password', value: ''},
+        {attrs: {placeholder: 'Min. 8 characters', type: 'password', name: 'password'},
             icon: {name: LockClosedIcon},
             label: 'Password',
             showPassword: true,
             value: password,
             valueSetter: setPassword,
         },
-        {attrs: {placeholder: 'Min. 8 characters', type: 'password', name: 'confirmPassword', value: ''},
+        {attrs: {placeholder: 'Min. 8 characters', type: 'password', name: 'confirmPassword'},
             icon: {name: LockClosedIcon},
             label: 'Confirm Password',
             showPassword: true,
@@ -53,9 +56,13 @@ const SignUp = () => {
     const handleClickCustomButton = () => {
         setIsLoading(true)
 
-        setTimeout(() => {
+        const user = {firstName, lastName, email, password, confirmPassword}
+        signup(user).then(() => {
+            navigate('/auth/signin')
+        }).catch(() => {
             setIsLoading(false)
-        }, 3000)
+            alert('email already exists')
+        })
     }
 
     return (

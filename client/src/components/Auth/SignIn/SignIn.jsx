@@ -13,8 +13,8 @@ const SignIn = () => {
     const {signIn} = useAuth()
     const [rememberMeIsChecked, setRememberMeIsChecked] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [email, setEmail] = useState('admin@gmail.com')
-    const [password, setPassword] = useState('admin')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     let navigate = useNavigate()
 
@@ -40,19 +40,12 @@ const SignIn = () => {
     const handleClickCustomButton = () => {
         setIsLoading(true)
 
-        setTimeout(() => {
-            const credentials = {email, password}
-            signIn(credentials, (res) => {
-                if (!res) {
-                    setIsLoading(false)
-                    alert('failure')
-                }
-
-                if (res) {
-                    navigate('/blog')
-                }
-            })
-        }, 500)
+        signIn({email, password}).then(() => {
+            navigate('/blog')
+        }).catch(() => {
+            setIsLoading(false)
+            alert('email or password incorrect')
+        })
     }
 
     const handleRememberMe = () => {
