@@ -39,6 +39,7 @@ const Toast = (props) => {
                 toastId.current = toast.error(text, defaultConfig);
                 break;
             default:
+                return ''
         }
     }, [type, defaultConfig, text]);
 

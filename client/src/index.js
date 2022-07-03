@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {AuthProvider} from "./context/AuthProvider";
 import './assets/css/fonts.css';
-import './index.scss';
+import './style.scss';
 
 import './config/axios.config'
 
