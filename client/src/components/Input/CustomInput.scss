@@ -3,7 +3,7 @@
 }
 
 .custom-input .icon {
-    @apply absolute h-2/5 pointer-events-none left-2 text-slate-500
+    @apply absolute h-full pointer-events-none left-2 text-slate-500
 }
 
 .custom-input .icon.active {

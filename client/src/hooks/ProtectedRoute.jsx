@@ -1,7 +1,7 @@
 import {useLocation, Outlet, Navigate} from 'react-router-dom'
 import useAuth from "./useAuth";
 
-const ProtectedRoute = () => {
+function ProtectedRoute() {
     const {isAuthenticated} = useAuth()
     const location = useLocation()
 

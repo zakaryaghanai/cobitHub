@@ -88,8 +88,8 @@ const GlobalNav = () => {
     );
 
     return (
-        <header className='fixed z-50 '>
-            <div className='w-full h-[80px] items-center bg-white/60 backdrop-blur-2xl py-2 px-8 flex gap-10 shadow-sm relative'>
+        <header className='sticky top-0 z-[1000]'>
+            <div className='w-full h-full items-center bg-white backdrop-blur-2xl py-2 px-8 flex gap-10 shadow-sm relative'>
                 <div className='logo flex  justify-between flex-grow md:flex-grow-0'>
                     <Link to='/'>
                         <div className='text-2xl font-bold text-slate-700'>Cobit<span
@@ -105,7 +105,7 @@ const GlobalNav = () => {
 
             </div>
             <div
-                className={showTopbar ? 'w-full bg-white/60 backdrop-blur-2xl p-4 shadow-md rounded-sm overflow-hidden absolute md:hidden' : 'hidden'}>
+                className={showTopbar ? 'w-full bg-white backdrop-blur-2xl p-4 shadow-md rounded-sm overflow-hidden absolute md:hidden' : 'hidden'}>
                 {verticalLinks}
             </div>
         </header>

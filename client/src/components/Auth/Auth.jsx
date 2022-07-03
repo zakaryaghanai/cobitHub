@@ -1,24 +1,41 @@
 import React from "react";
-import {Navigate, Outlet, useLocation} from "react-router-dom"
-
-import withOverlayBackground from '../../hooks/withOverlayBackground'
-import GlobalNav from "../GlobalNav/GlobalNav";
+import {Routes, Navigate, Route, useLocation} from "react-router-dom"
+import SignIn from "./SignIn/SignIn";
+import SignUp from "./SignUp/SignUp";
+import ForgetPassword from "./ForgetPassword/ForgetPassword";
+import Confirmation from "./Confirmation";
+import NotFound from "../NotFound/NotFound";
 import useAuth from "../../hooks/useAuth";
 
-const Auth = () => {
+function Auth() {
     const {isAuthenticated} = useAuth()
     const location = useLocation()
 
-    if (isAuthenticated) {
-        return <Navigate to='/blog' state={{from: location}} replace/>
+    const confirmation = location.pathname.includes('confirmationCode');
+
+    if (!confirmation) {
+
+        if (isAuthenticated) {
+            return <Navigate to='/blog' state={{from: location}} replace/>
+        }
+
+        if (location.pathname === '/auth' || location.pathname === '/auth/') {
+            return <Navigate to='signin' state={{from: location}} replace/>
+        }
     }
 
     return (
         <React.Fragment>
-            <GlobalNav/>
-            <Outlet/>
+            <Routes>
+                <Route path='signin' element={<SignIn/>} />
+                <Route path='signup' element={<SignUp/>}/>
+                <Route path='forgetpassword' element={<ForgetPassword/>}/>
+                <Route path='confirmation/confirmationcode/:code' element={<Confirmation />}/>
+                <Route path="*" element={<NotFound/>}/>
+            </Routes>
         </React.Fragment>
     )
 }
 
-export default withOverlayBackground(Auth)
+export default Auth
+// export default withOverlayBackground(Auth)

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import withOverlayBackground from '../../hooks/withOverlayBackground'
-
 const NotFound = () => {
     return (
         <React.Fragment>
@@ -12,4 +10,4 @@ const NotFound = () => {
     )
 }
 
-export default withOverlayBackground(NotFound)
+export default NotFound

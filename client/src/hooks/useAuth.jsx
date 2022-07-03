@@ -1,49 +1,65 @@
-import {useContext} from "react";
-import AuthContext from '../context/AuthProvider'
-import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider";
+import { globalAxios } from "../config";
 
 const useAuth = () => {
-
-    const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
     return {
         isAuthenticated,
         signIn: (credentials) => {
-            return new Promise(((resolve, reject) => {
-                axios.post('/api/auth/signin', credentials)
-                    .then(function (response) {
-                        localStorage.setItem('accessToken', 'Bearer ' + response.data.accessToken)
-                        setIsAuthenticated(true)
-                        resolve(true)
+            return new Promise((resolve, reject) => {
+                globalAxios
+                    .post("/api/auth/signin", credentials)
+                    .then((response) => {
+                        localStorage.setItem(
+                            "accessToken",
+                            "Bearer " + response.data.accessToken
+                        );
+                        setIsAuthenticated(true);
+                        resolve(true);
                     })
                     .catch((error) => {
-                        reject(error)
+                        reject(error);
                     });
-            }))
-
+            });
         },
         signup: (credentials) => {
-            return new Promise(((resolve, reject) => {
-                axios.post('/api/auth/signup', credentials)
-                    .then(function (response) {
-                        resolve(response)
+            return new Promise((resolve, reject) => {
+                globalAxios
+                    .post("/api/auth/signup", credentials)
+                    .then((response) => {
+                        resolve(response);
                     })
-                    .catch(function (error) {
-                        reject(error)
+                    .catch((error) => {
+                        reject(error);
                     });
-            }))
+            });
         },
         signOut: () => {
-            axios.post('/api/auth/signout')
-                .then(function () {
-                    localStorage.removeItem('accessToken')
-                    setIsAuthenticated(false)
+            globalAxios
+                .post("/api/auth/signout")
+                .then(() => {
+                    localStorage.removeItem("accessToken");
+                    setIsAuthenticated(false);
                 })
-                .catch(function (error) {
-                    console.log(error)
-                });
+                .catch((error) => {});
         },
-    }
-}
+        confirmAccount: (confirmationCode) => {
+            return new Promise((resolve, reject) => {
+                globalAxios
+                    .post("/api/auth/accountVerification", {
+                        confirmationCode: confirmationCode,
+                    })
+                    .then((data) => {
+                        resolve(data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+    };
+};
 
-export default useAuth
+export default useAuth;

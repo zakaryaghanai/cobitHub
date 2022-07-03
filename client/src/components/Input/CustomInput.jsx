@@ -56,7 +56,6 @@ const CustomInput = (props) => {
 
     let icon = null
     let eyeIcon = null
-    let label = null
     let handleInputChange = null
     let firstFocusRef = null
 
@@ -70,10 +69,6 @@ const CustomInput = (props) => {
         firstFocusRef = {
             ref: initFirstFocusHandler
         }
-    }
-
-    if (props.label) {
-        label = <span className='text-sm text-slate-600'>{props.label}</span>
     }
 
     if (props.icon) {
@@ -90,10 +85,10 @@ const CustomInput = (props) => {
 
     return (
         <div className='custom-input-wrap'>
-            {label}
+            
             <div className='custom-input flex items-center overflow-hidden'>
                 {icon}
-                <input className='w-full h-11 text-sm px-10 py-2 bg-zinc-400/5 rounded-sm text-zinc-800
+                <input className='w-full h-12 text-sm px-10 py-2 bg-sky-800/[3%] rounded text-zinc-800
                 focus:outline-none focus:ring-2 focus:ring-inset ring-transparent
                 focus:ring-sky-500 duration-100
                 focus:bg-white

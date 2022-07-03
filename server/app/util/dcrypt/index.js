@@ -1,12 +1,12 @@
-const bcrypt = require('bcryptjs');
+const index = require('bcrypt');
 
-function hash(password) {
+function hash(data) {
     return new Promise(((resolve, reject) => {
-        bcrypt.genSalt(10, (err, salt) => {
+        index.genSalt(10, (err, salt) => {
             if(err) {
                 reject(err)
             }
-            bcrypt.hash(password, salt, (err, hash) => {
+            index.hash(data, salt, (err, hash) => {
                 if(err) {
                     reject(err)
                 }

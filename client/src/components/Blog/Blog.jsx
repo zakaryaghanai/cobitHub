@@ -1,7 +1,7 @@
 import React from "react";
 import './Blog.scss'
 
-const Blog = () => {
+function Blog() {
     return (
         <React.Fragment>
             <div className='h-full w-full flex items-center justify-center'>
