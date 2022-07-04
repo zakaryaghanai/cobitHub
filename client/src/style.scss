@@ -81,7 +81,7 @@
     }
   }
   .invalid-feedback {
-    @apply focus duration-300 ring-red-400 ring-inset bg-red-50;
+    @apply focus duration-300 ring-red-400 ring-inset bg-invalid-feedback;
   }
 }
 
@@ -124,7 +124,7 @@ html, body {
     @apply bg-input border-2 border-gray-200 w-full py-2 text-text-primary group-focus:bg-red-800 rounded-default;
 
     &:focus {
-      @apply bg-primary focus outline-none ring-inset ring-transparent ring-primary;
+      @apply bg-primary-focus focus outline-none ring-inset ring-transparent ring-primary;
     }
     &::placeholder {
       @apply text-input-placeholder;
