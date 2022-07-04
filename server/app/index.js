@@ -15,8 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'));
 app.use(helmet());
-app.use(cors());// CORS Middleware
 
+if(process.env.NODE_ENV != 'production') {
+    app.use(cors());// CORS Middleware
+}
 // API Routes
 app.use(require('./routes'));
 
