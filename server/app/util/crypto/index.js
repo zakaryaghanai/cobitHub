@@ -1,4 +1,3 @@
-require('dotenv').config()
 const cryptoJS = require("crypto-js")
 const {encode, decode} = require("html-entities");
 

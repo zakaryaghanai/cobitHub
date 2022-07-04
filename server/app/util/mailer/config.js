@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const config = {
     host: process.env.COBITHUB_NODEMAILER_HOST,
     port: process.env.COBITHUB_NODEMAILER_PORT,

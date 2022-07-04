@@ -1,7 +1,6 @@
 'use strict'
-const fs = require('fs')
 
-if (fs.existsSync('.env')) {
+if (process.env.NODE_ENV != 'production') {
     require('dotenv').config()
 }
 
@@ -16,10 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'));
 app.use(helmet());
-
-if(fs.existsSync('.env')) {
-    app.use(cors());// CORS Middleware
-}
+app.use(cors());// CORS Middleware
 
 // API Routes
 app.use(require('./routes'));

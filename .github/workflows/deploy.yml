@@ -25,11 +25,9 @@ jobs:
       - name: remove unused files
         run: rm -r ./client ./server ./.github
 
-      - name: create procfile
-        run: >
-          echo "web: node main.js" > Procfile
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP}}
           heroku_email: "zakariyaghanai@gmail.com"
+          procfile: 'web: node main.js'
