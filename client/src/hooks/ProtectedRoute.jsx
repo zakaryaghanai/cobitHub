@@ -5,13 +5,11 @@ function ProtectedRoute() {
     const {isAuthenticated} = useAuth()
     const location = useLocation()
 
-    let elementToRender = <Outlet/>
-
     if(!isAuthenticated) {
-        elementToRender = <Navigate to='/auth/signin' state={{from: location}} replace />
+        return <Navigate to='/auth/signin' state={{from: location}} replace />
     }
 
-    return elementToRender
+    return <Outlet/>
 }
 
 export default ProtectedRoute

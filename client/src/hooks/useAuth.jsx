@@ -25,6 +25,11 @@ const useAuth = () => {
             });
         },
         signup: (credentials) => {
+            
+            // return new Promise((resolve, reject) => {
+            //     resolve(true)
+            // });
+
             return new Promise((resolve, reject) => {
                 globalAxios
                     .post("/api/auth/signup", credentials)

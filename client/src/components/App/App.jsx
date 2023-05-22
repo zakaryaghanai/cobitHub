@@ -16,9 +16,8 @@ const App = () => {
                 <Route path='/' element={<Layout/>}>
                     <Route path='auth/*' element={<Auth/>} />
                     <Route index element={<Home/>}/>
-                    <Route element={<ProtectedRoute/>}>
-                        <Route path='blog' element={<Blog/>}/>
-                    </Route>
+                    <Route element={<ProtectedRoute/>}></Route>
+                    <Route path='blog' element={<Blog/>}/>
                 </Route>
             </Routes>
         </React.Fragment>
